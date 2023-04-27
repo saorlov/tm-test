@@ -3,7 +3,12 @@ import {useEffect, useState} from "react";
 
 const CategoriesList = ({goods}: IProps) => {
 
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState<{
+        id: string,
+        image: string,
+        name: string,
+        counter: number,
+    }[]>([])
 
     useEffect(() => {
         const categoriesClone = [...categories]
@@ -30,12 +35,7 @@ const CategoriesList = ({goods}: IProps) => {
     return (
         <>
             {
-                categories.map((el: {
-                    id: string,
-                    image: string,
-                    name: string,
-                    counter: 1,
-                }) => {
+                categories.map((el) => {
                     return (
                         <a
                             href={el.image}
