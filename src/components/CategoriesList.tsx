@@ -1,5 +1,5 @@
 import {IProps} from "../model/product";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
 const CategoriesList = ({goods}: IProps) => {
 
@@ -8,7 +8,11 @@ const CategoriesList = ({goods}: IProps) => {
     useEffect(() => {
         const categoriesClone = [...categories]
         for (const good of goods) {
-            const catIdx = categoriesClone.findIndex(el => el.id === good.category.id)
+            const catIdx = categoriesClone.findIndex((el: {
+                id: string,
+                name: string,
+                image: string
+            }) => el.id === good.category.id)
             if (catIdx === -1) {
                 categoriesClone.push({
                     id: good.category.id,
@@ -26,7 +30,12 @@ const CategoriesList = ({goods}: IProps) => {
     return (
         <>
             {
-                categories.map(el => {
+                categories.map((el: {
+                    id: string,
+                    image: string,
+                    name: string,
+                    counter: 1,
+                }) => {
                     return (
                         <a
                             href={el.image}
@@ -44,7 +53,7 @@ const CategoriesList = ({goods}: IProps) => {
                             <span>
                                 Количество совпадений: {el.counter}
                             </span>
-                            <hr/>
+                            <hr />
                         </a>
                     )
                 })

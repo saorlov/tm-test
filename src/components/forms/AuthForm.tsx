@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {ChangeEvent, KeyboardEvent, FormEvent, useRef, useState} from "react";
 import {TiTick} from 'react-icons/ti';
 import {TiTimes} from 'react-icons/ti';
 
@@ -10,7 +10,7 @@ const AuthForm = () => {
     const [numberIsValid, setNumberIsValid] = useState(false)
     const [showError, setShowError] = useState(false)
 
-    const changeHandler = (e) => {
+    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNumberIsValid(false)
         let telephoneString = e.target.value
 
@@ -66,7 +66,7 @@ const AuthForm = () => {
         setNumber(telephoneString)
     }
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: KeyboardEvent): void => {
         if (e.key !== 'Backspace') return
 
         setNumber('')
@@ -82,7 +82,7 @@ const AuthForm = () => {
         if ((!numberIsValid && numberTouched && number)) setShowError(true)
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (numberIsValid) {
             const result = number.replaceAll(/\D/gi, '')

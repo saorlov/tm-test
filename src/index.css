@@ -7,6 +7,10 @@ html, body {
     padding: 0;
 }
 
+body {
+    background-color: rgba(0,0,0,.05);
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -151,12 +155,13 @@ a {
 }
 
 .search_box--overlay_inner {
-    background-color: rgba(0,0,0,.1);
+    background-color: white;
     width: 100%;
-    padding: 10px 10px;
+    padding: 20px 10px;
     display: flex;
     flex-direction: column;
     gap: 30px;
+    border-radius: 0 0 10px 10px;
 }
 
 .search_box--tabs {
@@ -176,6 +181,13 @@ a {
     flex-flow: row wrap;
     align-items: center;
     gap: 10px;
+    border: 1px solid lightgray;
+    transition: .5s;
+    border-radius: 0 10px 10px 0;
+}
+
+.search_box--item:hover {
+    background-color: lightgray;
 }
 
 .search_box--item_image {

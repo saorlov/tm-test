@@ -1,7 +1,7 @@
-import {useContext, useEffect, useState} from "react";
+import {ChangeEvent, useContext, useEffect, useState} from "react";
 import {BiSearch} from "react-icons/bi"
 import axios from 'axios'
-import {from} from 'rxjs'
+import {from, map} from 'rxjs'
 import {IProduct} from "../../model/product";
 import Overlay from "../Overlay";
 import {SearchContext} from "../../context/contexts";
@@ -10,12 +10,15 @@ const SearchForm = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [products, setProducts] = useState<IProduct[]>([])
-    const [filteredGoods, setFilteredGoods] = useState([])
+    const [filteredGoods, setFilteredGoods] = useState<IProduct[]>([])
     const ctx = useContext(SearchContext)
+
+    const showOverlay = ctx.isOpened && filteredGoods.length
 
     useEffect(() => {
         const $goods = from(axios.get('https://api.escuelajs.co/api/v1/products'))
-        $goods.subscribe(res => setProducts(res.data))
+            .pipe(map((res: {data: IProduct[]}) => res.data))
+        $goods.subscribe(res => setProducts(res))
     },[])
 
     useEffect(() => {
@@ -30,7 +33,7 @@ const SearchForm = () => {
         ctx.setOpened()
     }, [filteredGoods])
 
-    const changeHandler = (e) => {
+    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value)
     }
 
@@ -54,10 +57,7 @@ const SearchForm = () => {
                 <div className={'search_box--icon'}>
                     <BiSearch />
                 </div>
-                {
-                    (ctx.isOpened && filteredGoods.length) &&
-                    <Overlay goods={filteredGoods} />
-                }
+                {showOverlay ? <Overlay goods={filteredGoods} /> : ''}
             </div>
 
         </div>

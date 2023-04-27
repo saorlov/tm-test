@@ -1,14 +1,14 @@
 import {useEffect} from "react";
 
-export const useOutsideClickDetector = (ref, callback) => {
+export const useOutsideClickDetector = (ref: any, callback: any) => {
     useEffect(() => {
-        const handleClickOutside = (e) => {
+        const handleClickOutside = (e: any) => {
             if (ref.current && !ref.current.contains(e.target)) {
                 callback()
             }
         }
 
-        const handleKeyDownEvent = (e) => {
+        const handleKeyDownEvent = (e: any) => {
             if (ref.current && !ref.current.contains(e.target) && e.key === 'Escape') {
                 callback()
             }
