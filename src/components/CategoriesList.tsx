@@ -11,7 +11,7 @@ const CategoriesList = ({goods}: IProps) => {
     }[]>([])
 
     useEffect(() => {
-        const categoriesClone = [...categories]
+        const categoriesClone = []
         for (const good of goods) {
             const catIdx = categoriesClone.findIndex((el: {
                 id: string,
@@ -30,7 +30,7 @@ const CategoriesList = ({goods}: IProps) => {
             }
             setCategories(categoriesClone)
         }
-    },[])
+    },[goods])
 
     return (
         <>
